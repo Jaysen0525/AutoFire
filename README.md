@@ -8,9 +8,18 @@
 
 > 本工具针对**多闪**（包名 `my.maya.android`）适配，不适用于微信、QQ 等其他应用。
 
-**分享给别人时，请用正式签名版 `app-release.apk`，并附上 `安全验证说明.md`。**
-该文档列出了 APK 的 SHA-256 与签名证书指纹，接收方可以自己动手核对，
-而不必凭感觉相信。调试版（`app-debug.apk`）**不要外发** —— 它用的是公开的调试密钥，
+## 下载安装
+
+| 平台 | 安装包 |
+|---|---|
+| GitHub | [AotuFire-v2.6.apk](https://github.com/Jaysen0525/AutoFire/raw/main/dist/AotuFire-v2.6.apk) |
+| Gitee | [AotuFire-v2.6.apk](https://gitee.com/jaysen_chou/auto-fire/raw/main/dist/AotuFire-v2.6.apk) |
+
+- 安装包详情与校验指纹 → [`dist/`](dist/)
+- 「这个 APK 安全吗」——可以自己动手验证的方法 → [`安全验证说明.md`](安全验证说明.md)
+
+**分享给别人时请用 `AotuFire-v2.6.apk`（正式签名版）。**
+调试版（`app-debug.apk`）**不要外发** —— 它用的是公开的调试密钥，
 任何人都能签出同名的伪造包，无法证明来源。
 
 ---
@@ -232,5 +241,16 @@ cd <项目目录>
 | `ScreenKeeper` | 任务期间保持屏幕常亮 |
 | `Notifier` | 通知、全屏意图、结果推送 |
 | `Exporter` / `ExportProvider` | 诊断包的导出与分享 |
+
+---
+
+## 八、开源协议
+
+本项目采用 **MIT 协议**，详见 [`LICENSE`](LICENSE)。
+
+**你可以自由地使用、修改、分发、甚至商用**，只需要保留版权声明。
+不提供任何担保 —— 请自行评估使用风险。
+
+如果你改出了更适合自己的版本，欢迎提交 Pull Request。
 
 > 界面结构的实测数据与各模块的实现细节，整理在 `开发记录.md` 里，继续改代码前建议先看那份。
