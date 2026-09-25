@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- 导出文件放在应用私有外部目录下的 exports/ -->
+    <external-files-path
+        name="exports"
+        path="." />
+    <files-path
+        name="internal"
+        path="." />
+</paths>

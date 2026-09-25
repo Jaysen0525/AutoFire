@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">自动续火花</string>
+    <string name="accessibility_label">自动续火花</string>
+    <string name="accessibility_desc">用于在设定时间自动打开多闪并给指定好友发送一条消息，以保持火花。仅在你手动开启后生效。</string>
+</resources>

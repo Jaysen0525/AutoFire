@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="28dp">
+
+        <!-- ==================== 头部：状态总览 ==================== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:background="@drawable/bg_hero"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/bg_flame_chip"
+                    android:gravity="center"
+                    android:text="🔥"
+                    android:textSize="22sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/THero"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="自动续火花" />
+
+                    <TextView
+                        android:id="@+id/tvHeroSub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="每天自动给名单里的好友发一条消息"
+                        android:textColor="#D9FFFFFF"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvHeroPill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/pill_hero_off"
+                    android:paddingStart="12dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="5dp"
+                    android:text="○ 已停止"
+                    android:textColor="@color/text_on_primary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <Switch
+                    android:id="@+id/cbEnable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:thumbTint="@color/switch_thumb_hero"
+                    android:trackTint="@color/switch_track_hero" />
+            </LinearLayout>
+
+            <!-- 下次执行：嵌在头部里的半透明信息块 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_hero_inner"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="下次自动执行"
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvNextRun"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="—"
+                    android:textColor="@color/text_on_primary"
+                    android:textSize="19sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvHeroDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text=""
+                    android:textColor="#99FFFFFF"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ==================== 手动执行 ==================== -->
+        <LinearLayout style="@style/Card">
+
+            <TextView
+                style="@style/TSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="手动执行" />
+
+            <Button
+                android:id="@+id/btnRunDuoshan"
+                style="@style/BtnPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="立即执行一次（跳过解锁）" />
+
+            <Button
+                android:id="@+id/btnRunFull"
+                style="@style/BtnSecondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="完整链路测试（息屏唤醒解锁）" />
+
+            <Button
+                android:id="@+id/btnCancelTask"
+                style="@style/BtnGhost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="取消当前任务" />
+        </LinearLayout>
+
+        <!-- ==================== 环境自检 ==================== -->
+        <LinearLayout style="@style/Card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TSection"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="环境自检" />
+
+                <TextView
+                    android:id="@+id/tvCheckSummary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/pill_warn"
+                    android:paddingStart="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="4dp"
+                    android:text=""
+                    android:textColor="@color/warn"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/checkContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="vertical" />
+
+            <Button
+                android:id="@+id/btnFixMiui"
+                style="@style/BtnGhost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="小米 / 澎湃 OS 权限说明" />
+        </LinearLayout>
+
+        <!-- ==================== 设置 ==================== -->
+        <LinearLayout style="@style/Card">
+
+            <TextView
+                style="@style/TSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设置" />
+
+            <TextView
+                style="@style/TLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="每天触发时间" />
+
+            <EditText
+                android:id="@+id/etTime"
+                style="@style/Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="例如 01:00"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLength="5" />
+
+            <TextView
+                style="@style/TLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="要续火花的好友（一行一个，只认这些名字）" />
+
+            <EditText
+                android:id="@+id/etNicknames"
+                style="@style/Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:hint="例如：\n好友甲\n好友戊\n好友乙"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:minLines="3" />
+
+            <TextView
+                style="@style/TLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="锁屏密码（6 位数字，仅保存在本机）" />
+
+            <EditText
+                android:id="@+id/etPin"
+                style="@style/Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="用于自动解锁"
+                android:importantForAutofill="no"
+                android:inputType="numberPassword"
+                android:maxLength="8" />
+
+            <TextView
+                style="@style/TLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="文案池（一行一条，每次随机抽一条）" />
+
+            <EditText
+                android:id="@+id/etMessages"
+                style="@style/Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:hint="1&#10;早&#10;在&#10;续火花"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:minLines="4" />
+
+            <Button
+                android:id="@+id/btnSaveConfig"
+                style="@style/BtnPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="保存并排定闹钟" />
+        </LinearLayout>
+
+        <!-- ==================== 最近一次执行 ==================== -->
+        <LinearLayout style="@style/Card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TSection"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="最近一次执行" />
+
+                <Button
+                    android:id="@+id/btnShareTask"
+                    style="@style/BtnTiny"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="分享诊断包" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvTaskReport"
+                style="@style/TMono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_code"
+                android:lineSpacingExtra="2dp"
+                android:maxLines="16"
+                android:padding="12dp"
+                android:scrollbarStyle="insideOverlay"
+                android:scrollbars="vertical"
+                android:text="（尚未执行）"
+                android:textColor="@color/code_dim"
+                android:textIsSelectable="true" />
+        </LinearLayout>
+
+        <!-- ==================== 高级 / 诊断 ==================== -->
+        <LinearLayout style="@style/Card">
+
+            <Button
+                android:id="@+id/btnToggleDiag"
+                style="@style/BtnGhost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="高级 / 诊断  ▾" />
+
+            <LinearLayout
+                android:id="@+id/diagContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/TLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="唤醒诊断（回归验证用）" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnTest1"
+                        style="@style/BtnTiny"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="1 前台" />
+
+                    <Button
+                        android:id="@+id/btnTest2"
+                        style="@style/BtnTiny"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:text="2 后台" />
+
+                    <Button
+                        android:id="@+id/btnTest3"
+                        style="@style/BtnTiny"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:text="3 灭屏" />
+
+                    <Button
+                        android:id="@+id/btnClearTimeline"
+                        style="@style/BtnTiny"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:text="清空" />
+
+                    <Button
+                        android:id="@+id/btnStopService"
+                        style="@style/BtnTiny"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:text="停保活" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvTimeline"
+                    style="@style/TMono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_code"
+                    android:maxLines="10"
+                    android:padding="10dp"
+                    android:text="（尚未测试）"
+                    android:textColor="@color/code_dim"
+                    android:textIsSelectable="true" />
+
+                <TextView
+                    style="@style/TLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="多闪界面侦察（采集当前界面结构）" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnRecon"
+                        style="@style/BtnTiny"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="开始侦察" />
+
+                    <Button
+                        android:id="@+id/btnShareRecon"
+                        style="@style/BtnTiny"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="分享侦察文件" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvReconResult"
+                    style="@style/TMono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_code"
+                    android:maxLines="8"
+                    android:padding="10dp"
+                    android:text="（尚未采集）"
+                    android:textColor="@color/code_dim"
+                    android:textIsSelectable="true" />
+
+                <TextView
+                    style="@style/TLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="运行日志" />
+
+                <TextView
+                    android:id="@+id/tvLog"
+                    style="@style/TMono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_code"
+                    android:maxLines="16"
+                    android:padding="10dp"
+                    android:text="（无）"
+                    android:textColor="@color/code_dim"
+                    android:textIsSelectable="true" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnCopyLog"
+                        style="@style/BtnTiny"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="复制日志" />
+
+                    <Button
+                        android:id="@+id/btnClearLog"
+                        style="@style/BtnTiny"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="清空日志" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

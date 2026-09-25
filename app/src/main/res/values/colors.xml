@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主色调：火花主题的暖橙 -->
+    <color name="primary">#F4511E</color>
+    <color name="primary_dark">#D84315</color>
+    <color name="primary_light">#FF8A3D</color>
+    <color name="primary_tint">#FDEFE7</color>
+
+    <!-- 背景与容器 -->
+    <color name="bg">#FAF7F3</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="divider">#F0E9E1</color>
+    <color name="divider_strong">#E4DBD1</color>
+    <color name="card_stroke">#F4EDE6</color>
+
+    <!-- 文字 -->
+    <color name="text_primary">#221F1C</color>
+    <color name="text_secondary">#77706A</color>
+    <color name="text_hint">#A8A19A</color>
+    <color name="text_on_primary">#FFFFFF</color>
+
+    <!-- 状态色 -->
+    <color name="ok">#16A34A</color>
+    <color name="ok_bg">#E5F6EC</color>
+    <color name="bad">#DC2626</color>
+    <color name="bad_bg">#FCEAEA</color>
+    <color name="warn">#D97706</color>
+    <color name="warn_bg">#FDF2E2</color>
+    <color name="info_bg">#EEF3FB</color>
+
+    <!-- 输入框 -->
+    <color name="input_bg">#F6F1EC</color>
+    <color name="input_stroke">#ECE3D9</color>
+
+    <!-- 头部渐变（火焰） -->
+    <color name="hero_start">#FF9E3D</color>
+    <color name="hero_end">#EF4B12</color>
+
+    <!-- 暗色代码块 -->
+    <color name="code_bg">#24272C</color>
+    <color name="code_text">#C9D1D9</color>
+    <color name="code_dim">#8B949E</color>
+</resources>

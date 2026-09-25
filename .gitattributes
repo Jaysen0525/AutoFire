@@ -1,0 +1,12 @@
+# 统一换行符：仓库内一律用 LF，避免跨平台差异刷出无意义的改动
+* text=auto eol=lf
+
+# Windows 批处理必须是 CRLF
+*.bat text eol=crlf
+
+# 二进制文件不做换行符转换
+*.jar binary
+*.jks binary
+*.keystore binary
+*.png binary
+*.webp binary

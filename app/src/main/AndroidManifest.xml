@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+      无障碍服务的能力声明写在下面的 <service android:permission="..."> 上就够了，
+      不需要（也不应该）在这里再声明一次 uses-permission —— 那是系统持有的权限。
+    -->
+
+    <!-- 悬浮窗：保持屏幕常亮（ScreenKeeper）+ 后台启动界面的豁免条件 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!-- 亮屏与息屏期间保持 CPU 运行 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- 全屏意图：Android 官方给闹钟/来电准备的「点亮屏幕并显示在锁屏之上」通道。
+         Android 14+ 非闹钟类应用需用户在「特殊权限 → 全屏通知」里手动允许。 -->
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+
+    <!-- 精确到点的定时（v1）。USE_EXACT_ALARM 自动授予，SCHEDULE_EXACT_ALARM 供旧版本使用 -->
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
+    <!-- 前台服务常驻（保活的关键） -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+
+    <!-- 开机自启（v1） -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- 通知（Android 13+ 需运行时授权） -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- 申请忽略电池优化 -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
+    <!--
+      包可见性（Android 11+ 限制）：只声明需要看到的那一个应用 —— 多闪。
+      刻意**不用** QUERY_ALL_PACKAGES（那会暴露"能读取你装过的所有应用"的疑虑面），
+      用 <queries> 精确声明单个包名，同样能按包名把它拉起来。
+    -->
+    <queries>
+        <package android:name="my.maya.android" />
+    </queries>
+
+    <!-- 刻意不申请 INTERNET：没有这个权限，进程的所有网络调用会被系统直接拒绝，
+         数据在物理上不可能离开手机。这不依赖"作者承诺"，而是系统沙箱保证的。 -->
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AotuFire">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+          亮屏解锁用的透明 Activity。
+          showWhenLocked + turnScreenOn 让它能在锁屏之上显示并点亮屏幕。
+          刻意不加 noHistory：否则一旦判定不可见就会自我销毁，导致唤醒失败。
+        -->
+        <activity
+            android:name=".WakeActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:showWhenLocked="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.AotuFire.Wake"
+            android:turnScreenOn="true" />
+
+        <!-- 前台服务：让进程在息屏后不被国产 ROM 冻结 -->
+        <service
+            android:name=".FireService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="scheduled_local_task_automation" />
+        </service>
+
+        <service
+            android:name=".FireAccessibilityService"
+            android:exported="true"
+            android:label="@string/accessibility_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+        <!-- 文件分享通道：长文本导出走文件，避免被截断 -->
+        <provider
+            android:name=".ExportProvider"
+            android:authorities="com.aotu.fire.exports"
+            android:exported="false"
+            android:grantUriPermissions="true" />
+
+        <!-- 每日闹钟（显式 Intent 触发，无需 intent-filter） -->
+        <receiver
+            android:name=".FireAlarmReceiver"
+            android:exported="false" />
+
+        <!-- 开机 / 应用更新后恢复定时 -->
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

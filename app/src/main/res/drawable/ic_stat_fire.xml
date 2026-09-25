@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  通知小图标（状态栏 + 通知列表左侧）。
+  规范要求：纯白单色 + 透明背景，系统会自动着色。
+
+  之前这里画的是一个**实心白圆**——24px 下就是一颗没有辨识度的圆点。
+  现在换成火苗轮廓，并且用 fillType="evenOdd" 让内焰镂空，
+  这样在极小尺寸下也能看出是火苗。
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M13.5,0.67c0,0 0.74,2.65 0.74,4.8c0,2.06 -1.35,3.73 -3.41,3.73c-2.07,0 -3.63,-1.67 -3.63,-3.73l0.03,-0.36C5.21,7.51 4,10.62 4,14c0,4.42 3.58,8 8,8s8,-3.58 8,-8C20,8.61 17.41,3.8 13.5,0.67z M10.94,18.5c-1.66,0 -3,-1.34 -3,-3c0,-1.54 1,-2.64 2.68,-2.98c1.69,-0.35 3.44,-1.16 4.43,-2.47c0.37,1.22 0.56,2.51 0.56,3.83C15.61,16.41 13.91,18.5 10.94,18.5z" />
+</vector>

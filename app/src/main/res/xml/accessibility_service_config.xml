@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  无障碍服务配置。
+  关键点：
+    canRetrieveWindowContent   读取界面节点树（定位好友/输入框的基础）
+    flagReportViewIds          节点带 viewIdResourceName（最稳的定位方式）
+    flagRetrieveInteractiveWindows  能看到多个窗口（锁屏 / SystemUI / 多闪分开 dump）
+    flagIncludeNotImportantViews    连没标记为 important 的视图也拿（锁屏键盘常在此列）
+    canPerformGestures         坐标点击兜底（dispatchGesture）
+    canTakeScreenshot          API 30+ 免授权截图，用于失败诊断
+  刻意不开 flagRequestFilterKeyEvents：那需要额外授权且会吓到用户，我们不需要拦截按键。
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeWindowStateChanged|typeWindowContentChanged|typeViewClicked"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagDefault|flagReportViewIds|flagRetrieveInteractiveWindows|flagIncludeNotImportantViews"
+    android:canPerformGestures="true"
+    android:canRetrieveWindowContent="true"
+    android:canTakeScreenshot="true"
+    android:description="@string/accessibility_desc"
+    android:notificationTimeout="100"
+    android:summary="@string/accessibility_desc" />
